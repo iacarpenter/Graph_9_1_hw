@@ -1,7 +1,7 @@
 #ifndef CDS242_GRAPH_H
 #define CDS242_GRAPH_H
 
-#include <vector>;
+#include <vector>
 
 class Graph {
 public:

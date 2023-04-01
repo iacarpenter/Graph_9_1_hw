@@ -31,9 +31,9 @@ void Graph::print_graph() {
 Graph::Edge::Edge(int v1, int v2, double w) {
     vtx1 = v1;
     vtx2 = v2;
-    weight = 2;
+    weight = w;
 }
 
-Graph::Vertex::Vertex(int id) {
+Graph::Vertex::Vertex(int i) {
     id = i;
 }
