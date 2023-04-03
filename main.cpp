@@ -15,4 +15,36 @@ int main() {
     directed_g.add_edge(1, 7);
     directed_g.add_edge(0, 1);
     directed_g.print_graph();
+
+    std::vector<int> undirected_out = undirected_g.out_degrees();
+    std::cout << "----undirected graph out-degrees----" << std::endl;
+    for (int i : undirected_out)
+        std::cout << i << std::endl;
+    std::vector<int> undirected_in = undirected_g.in_degrees();
+    std::cout << "----undirected graph in-degrees----" << std::endl;
+    for (int i : undirected_in)
+        std::cout << i << std::endl;
+    std::vector<std::vector<double>> undir_adj_matrix = undirected_g.construct_adjacency_matrix();
+    std::cout << "----undirected graph adjacency matrix----" << std::endl;
+    for (std::vector<double> &v : undir_adj_matrix) {
+        for (int i : v)
+            std::cout << i << " ";
+        std::cout << std::endl;
+    }
+
+    std::vector<int> directed_out = directed_g.out_degrees();
+    std::cout << "----directed graph out-degrees----" << std::endl;
+    for (int i : directed_out)
+        std::cout << i << std::endl;
+    std::vector<int> directed_in = directed_g.in_degrees();
+    std::cout << "----directed graph in-degrees----" << std::endl;
+    for (int i : directed_in)
+        std::cout << i << std::endl;
+    std::vector<std::vector<double>> dir_adj_matrix = directed_g.construct_adjacency_matrix();
+    std::cout << "----directed graph adjacency matrix----" << std::endl;
+    for (std::vector<double> &v : dir_adj_matrix) {
+        for (int i : v)
+            std::cout << i << " ";
+        std::cout << std::endl;
+    }
 }

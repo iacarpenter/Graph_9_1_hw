@@ -6,6 +6,10 @@
 class Graph {
 public:
     Graph(std::size_t v, bool d);
+    /*
+     * Adds an edge leading from v1 to v2 if the graph is directed. If the
+     * graph is undirected the edge leads both ways.
+     * */
     void add_edge(int v1, int v2, double w = 0);
     int size();
     std::vector<int> out_degrees();
@@ -16,7 +20,7 @@ public:
 private:
     struct Edge {
         int vtx1;
-        int vtx2;
+        int vtx2; // vertex that the edge leads to if the graph is undirected
         double weight;
 
         Edge(int v1, int v2, double w = 0);

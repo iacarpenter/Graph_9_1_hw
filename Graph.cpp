@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "Graph.h"
 
 Graph::Graph(std::size_t v, bool d) {
@@ -43,13 +44,18 @@ std::vector<int> Graph::in_degrees() {
         for (Edge e : i.edges)
             in[e.vtx2]++;
     }
+    return in;
 }
 
 std::vector<std::vector<double>> Graph::construct_adjacency_matrix() {
-    std::vector<std::vector<double>> matrix(size(), std::vector<double>(size()));
-    if (!directed) {
-        std::vector<int> degrees = out_degrees();
+    double lowest_double = std::numeric_limits<double>::lowest();
+    std::vector<std::vector<double>> matrix(size(), std::vector<double>(size(), lowest_double));
+    for (Vertex i : vertices) {
+        for (Edge e : i.edges) {
+            matrix[e.vtx1][e.vtx2] = e.weight;
+        }
     }
+    return matrix;
 }
 
 void Graph::print_graph() {
