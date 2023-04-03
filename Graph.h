@@ -8,6 +8,9 @@ public:
     Graph(std::size_t v, bool d);
     void add_edge(int v1, int v2, double w = 0);
     int size();
+    std::vector<int> out_degrees();
+    std::vector<int> in_degrees();
+    std::vector<std::vector<double>> construct_adjacency_matrix();
     void print_graph();
 
 private:
