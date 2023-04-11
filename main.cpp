@@ -47,4 +47,9 @@ int main() {
             std::cout << i << " ";
         std::cout << std::endl;
     }
+
+    std::vector<int> directed_g_ordering = directed_g.top_sort(directed_in);
+    std::cout << "----directed graph topological ordering----" << std::endl;
+    for (int i : directed_g_ordering)
+        std::cout << i << std::endl;
 }

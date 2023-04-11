@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <queue>
 #include "Graph.h"
 
 Graph::Graph(std::size_t v, bool d) {
@@ -56,6 +57,33 @@ std::vector<std::vector<double>> Graph::construct_adjacency_matrix() {
         }
     }
     return matrix;
+}
+
+std::vector<int> Graph::top_sort(std::vector<int> in_deg) {
+    if (!directed)
+        throw graph_error("called top_sort on an undirected graph");
+
+    std::vector<int> sorted;
+    std::queue<int> q;
+
+    for (int i = 0; i < in_deg.size(); i++) {
+        if (in_deg[i] == 0)
+            q.push(i);
+    }
+
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+        sorted.push_back(v);
+
+        for(Edge e : vertices[v].edges) {
+            int w = e.vtx2;
+            if (--in_deg[w] == 0)
+                q.push(w);
+        }
+    }
+
+    return sorted;
 }
 
 void Graph::print_graph() {

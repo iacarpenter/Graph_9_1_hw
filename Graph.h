@@ -2,6 +2,14 @@
 #define CDS242_GRAPH_H
 
 #include <vector>
+#include <stdexcept>
+
+class graph_error : public std::runtime_error {
+public:
+    graph_error(const std::string& what)
+        : std::runtime_error(what)
+    {}
+};
 
 class Graph {
 public:
@@ -15,6 +23,13 @@ public:
     std::vector<int> out_degrees();
     std::vector<int> in_degrees();
     std::vector<std::vector<double>> construct_adjacency_matrix();
+    /*
+     * Takes a vector of integers representing the in degrees of the
+     * vertices of the graph, with the integer at index i being the
+     * in degree of the vertex with id i. Returns a vector of integers
+     * with the ids of the vectors in topological sorted order.
+     * */
+    std::vector<int> top_sort(std::vector<int> in_deg);
     void print_graph();
 
 private:
