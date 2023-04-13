@@ -76,7 +76,7 @@ std::vector<int> Graph::top_sort(std::vector<int> in_deg) {
         q.pop();
         sorted.push_back(v);
 
-        for(Edge e : vertices[v].edges) {
+        for (Edge e : vertices[v].edges) {
             int w = e.vtx2;
             if (--in_deg[w] == 0)
                 q.push(w);
@@ -84,6 +84,32 @@ std::vector<int> Graph::top_sort(std::vector<int> in_deg) {
     }
 
     return sorted;
+}
+
+std::vector<std::pair<int, int>> Graph::unweighted_shortest_path(int s) {
+    std::queue<int> q;
+    int max_int = std::numeric_limits<int>::max();
+    std::vector<int> distances(size(), max_int);
+    std::vector<std::pair<int, int>> shortest_path(size(), std::pair<int, int>(max_int, max_int));
+    distances[s] = 0;
+    q.push(s);
+
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+
+        for (Edge e : vertices[v].edges) {
+            int w = e.vtx2;
+            if (distances[w] == max_int) {
+                distances[w] = ++distances[v];
+                shortest_path[w].first = distances[w];
+                shortest_path[w].second = v;
+                q.push(w);
+            }
+        }
+    }
+
+    return shortest_path;
 }
 
 void Graph::print_graph() {

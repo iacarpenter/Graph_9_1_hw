@@ -30,6 +30,14 @@ public:
      * with the ids of the vectors in topological sorted order.
      * */
     std::vector<int> top_sort(std::vector<int> in_deg);
+    /*
+     * Takes an integer s that is the id of the start vertex. Returns a
+     * vector of pairs of integers, with the pair at index i corresponding
+     * to the vertex with id i. The first integer in the pair represents
+     * the distance of vertex i from vertex s, and the second integer is
+     * the id of the vertex that precedes i in its path from s.
+     * */
+    std::vector<std::pair<int, int>> unweighted_shortest_path(int s);
     void print_graph();
 
 private:
