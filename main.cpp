@@ -52,4 +52,13 @@ int main() {
     std::cout << "----directed graph topological ordering----" << std::endl;
     for (int i : directed_g_ordering)
         std::cout << i << std::endl;
+
+    std::vector<std::pair<int, int>> directed_unweighted_paths = directed_g.unweighted_shortest_path(0);
+    std::cout << "----directed graph unweighted shortest paths----" << std::endl;
+    for (int i = 0; i < directed_unweighted_paths.size(); ++i) {
+        std::pair<int, int> &p = directed_unweighted_paths[i];
+        std::cout << "Vertex " << i << ":" << std::endl;
+        std::cout << "    distance: " << p.first << std::endl;
+        std::cout << "    preceding vertex: " << p.second << std::endl;
+    }
 }

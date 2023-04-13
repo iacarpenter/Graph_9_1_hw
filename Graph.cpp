@@ -92,6 +92,8 @@ std::vector<std::pair<int, int>> Graph::unweighted_shortest_path(int s) {
     std::vector<int> distances(size(), max_int);
     std::vector<std::pair<int, int>> shortest_path(size(), std::pair<int, int>(max_int, max_int));
     distances[s] = 0;
+    shortest_path[s].first = 0;
+    shortest_path[s].second = 0;
     q.push(s);
 
     while (!q.empty()) {
@@ -101,7 +103,7 @@ std::vector<std::pair<int, int>> Graph::unweighted_shortest_path(int s) {
         for (Edge e : vertices[v].edges) {
             int w = e.vtx2;
             if (distances[w] == max_int) {
-                distances[w] = ++distances[v];
+                distances[w] = distances[v] + 1;
                 shortest_path[w].first = distances[w];
                 shortest_path[w].second = v;
                 q.push(w);
