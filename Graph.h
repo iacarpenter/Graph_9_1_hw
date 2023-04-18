@@ -35,9 +35,11 @@ public:
      * vector of pairs of integers, with the pair at index i corresponding
      * to the vertex with id i. The first integer in the pair represents
      * the distance of vertex i from vertex s, and the second integer is
-     * the id of the vertex that precedes i in its path from s.
+     * the id of the vertex that precedes i in its path from s (with s
+     * having -1 for this value).
      * */
     std::vector<std::pair<int, int>> unweighted_shortest_path(int s);
+    std::vector<std::pair<double, int>> dijkstra(int s);
     void print_graph();
 
 private:

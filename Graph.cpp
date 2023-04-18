@@ -93,7 +93,7 @@ std::vector<std::pair<int, int>> Graph::unweighted_shortest_path(int s) {
     std::vector<std::pair<int, int>> shortest_path(size(), std::pair<int, int>(max_int, max_int));
     distances[s] = 0;
     shortest_path[s].first = 0;
-    shortest_path[s].second = 0;
+    shortest_path[s].second = -1;
     q.push(s);
 
     while (!q.empty()) {
@@ -111,6 +111,44 @@ std::vector<std::pair<int, int>> Graph::unweighted_shortest_path(int s) {
         }
     }
 
+    return shortest_path;
+}
+
+std::vector<std::pair<double, int>> Graph::dijkstra(int s) {
+    // priority queue of pairs where the first value is the distance and
+    // the second value is the vertex id
+    std::priority_queue<std::pair<double, int>, std::vector<std::pair<double, int>>, std::greater<std::pair<double, int>>> frontier;
+    // vector of pairs where the index corresponds to the id of the vertex,
+    // the first value of the pair is the length of the shortest path from
+    // the source to that vertex, and the second value is the id of the vertex
+    // that precedes it in the shortest path
+    std::vector<std::pair<double, int>> shortest_path(size(), std::pair<double, int>(-1, -1));
+    std::vector<bool> known(size(), false);
+
+    shortest_path[s].first = 0;
+    frontier.push(std::make_pair(0, s));
+
+    while (!frontier.empty()) {
+        std::pair<double, int> v = frontier.top();
+        frontier.pop();
+
+        if (!known[v.second]) {
+            known[v.second] = true;
+
+            for (Edge e : vertices[v.second].edges) {
+                int w = e.vtx2;
+                if (!known[w]) {
+                    double cvw = e.weight;
+
+                    if (v.first + cvw < shortest_path[w].first) {
+                        frontier.push(std::make_pair(v.first + cvw, w));
+                        shortest_path[w].first = v.first + cvw;
+                        shortest_path[w].second = v.second;
+                    }
+                }
+            }
+        }
+    }
     return shortest_path;
 }
 
