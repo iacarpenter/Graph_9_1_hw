@@ -1,7 +1,25 @@
 #include <iostream>
+#import <random>
 #include "Graph.h"
 
+Graph gen_graph(int n, int d, bool directed) {
+    static std::random_device rd;
+    static std::default_random_engine re(rd());
+    std::uniform_int_distribution<int> dist(0, n-1);
+
+    Graph ret(n, directed);
+
+    for (int i=0; i<n*d; ++i) {
+        auto u = dist(re);
+        auto v = dist(re);
+        ret.add_edge(u, v);
+    }
+
+    return ret;
+}
+
 int main() {
+    /*
     std::cout << "----undirected graph----" << std::endl;
     Graph undirected_g (10, false);
     undirected_g.add_edge(0, 2, 10.5);
@@ -61,4 +79,14 @@ int main() {
         std::cout << "    distance: " << p.first << std::endl;
         std::cout << "    preceding vertex: " << p.second << std::endl;
     }
+    */
+
+    Graph testing_g = gen_graph(10, 10, false);
+
+    std::cout << "----dijkstra testing vector contents----" << std::endl;
+    std::vector<std::pair<double, int>> testing_g_dij = testing_g.dijkstra(0);
+    for (std::pair<int, int> p : testing_g_dij) {
+        std::cout << p.first << " " << p.second << std::endl;
+    }
+
 }
